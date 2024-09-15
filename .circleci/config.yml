@@ -13,14 +13,22 @@ jobs:
           command: echo "Skipping dependency installation."
 
   # Test job
-  test:
+  test1:
     docker:
       - image: cimg/python:3.10
     steps:
       - checkout
       - run:
-          name: Testing
-          command: echo "Testing"
+          name: Testing1
+          command: echo "Testing1"
+  test2:
+    docker:
+      - image: cimg/python:3.10
+    steps:
+      - checkout
+      - run:
+          name: Testing2
+          command: echo "Testing2"
 
   # Deploy job
   deploy:
@@ -38,9 +46,13 @@ workflows:
   build_test_deploy_workflow:
     jobs:
       - build
-      - test:
+      - test1:
+          requires:
+            - build  # Only run tests after the build job succeeds
+      - test2:
           requires:
             - build  # Only run tests after the build job succeeds
       - deploy:
           requires:
-            - test  # Only deploy after the test job succeeds
+            - test1  # Only deploy after the test job succeeds
+            - test2
