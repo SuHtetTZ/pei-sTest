@@ -21,6 +21,23 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
+  
+  test:
+    docker:
+      - image: cimg/python:3.10  # Use a Python image to run your tests
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt  # Assuming you have a requirements file
+      - run:
+          name: Run tests
+          command: |
+            . venv/bin/activate
+            pytest  # Run your test suite
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
@@ -29,3 +46,4 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - say-hello
+      - test
