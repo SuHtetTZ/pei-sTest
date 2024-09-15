@@ -28,16 +28,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install dependencies
+          name: Run tests
           command: |
             python -m venv venv
             . venv/bin/activate
-            pip install -r requirements.txt  # Assuming you have a requirements file
-      - run:
-          name: Run tests
-          command: |
-            . venv/bin/activate
-            pytest  # Run your test suite
+            # Directly run your test suite
+            pytest
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
