@@ -1,58 +1,22 @@
 version: 2.1
 
-# Define jobs
+# Define the build job
 jobs:
-  # Build job
   build:
     docker:
-      - image: cimg/python:3.10  # Or any language you're using (adjust the image accordingly)
+      - image: circleci/python:3.8  # Specify an appropriate image (can change to suit your project)
     steps:
-      - checkout  # Checkout the code from your repository
+      - checkout  # Pull the code from GitHub repository
       - run:
-          name: No dependencies required for build
-          command: echo "Skipping dependency installation."
+          name: Build Project
+          command: |
+            # Add your build commands here, for example:
+            python setup.py install  # or any build command relevant to your project
+            python home.py install
 
-  # Test job
-  test1:
-    docker:
-      - image: cimg/python:3.10
-    steps:
-      - checkout
-      - run:
-          name: Testing1
-          command: echo "Testing1"
-  test2:
-    docker:
-      - image: cimg/python:3.10
-    steps:
-      - checkout
-      - run:
-          name: Testing2
-          command: echo "Testing2"
-
-  # Deploy job
-  deploy:
-    docker:
-      - image: cimg/python:3.10
-    steps:
-      - checkout
-      - run:
-          name: Deploy
-          command : echo "Deployment"
-
-# Define workflows
+# Workflow
 workflows:
   version: 2
-  build_test_deploy_workflow:
+  build_and_test:
     jobs:
       - build
-      - test1:
-          requires:
-            - build  # Only run tests after the build job succeeds
-      - test2:
-          requires:
-            - build  # Only run tests after the build job succeeds
-      - deploy:
-          requires:
-            - test1  # Only deploy after the test job succeeds
-            - test2
