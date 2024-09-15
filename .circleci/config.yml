@@ -11,6 +11,15 @@ jobs:
           name: Build Project
           command: |
             python home.py install
+  build2:
+    docker:
+      - image: circleci/python:3.8  # Specify an appropriate image (can change to suit your project)
+    steps:
+      - checkout  # Pull the code from GitHub repository
+      - run:
+          name: Build Project
+          command: |
+            python subtract.py install
   test:
     docker:
       - image: circleci/python:3.8  # Use the appropriate Docker image
@@ -24,7 +33,7 @@ jobs:
       - run:
           name: Run Tests with pytest
           command: |
-            pytest  test/test_sum1.py # Discover and run all test_*.py files
+            pytest test_sum1.py # Discover and run all test_*.py files
 
 
 # Workflow
@@ -33,6 +42,8 @@ workflows:
   build_and_test:
     jobs:
       - build
+      - build2
       - test:
           requires:
             - build
+            - build2
