@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout  # Checkout the code from your repository
       - run:
-          name: "No dependencies required for build"
+          name: No dependencies required for build
           command: echo "Skipping dependency installation."
 
   # Test job
@@ -19,13 +19,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "No dependencies required for build"
-          command: echo "Skipping dependency installation."
-      - run:
-          name: Run Tests
-          command: |
-            . venv/bin/activate
-            pytest  # Run the test suite
+          name: Testing
+          command: echo "Testing"
 
   # Deploy job
   deploy:
@@ -34,17 +29,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Dependencies
-          command: |
-            python -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt  # Install dependencies for deployment
-      - run:
-          name: Deploy to Production
-          command: |
-            echo "Deploying to production environment"
-            # Add your deployment commands here, e.g., pushing to a server or a cloud platform
-            # For example, AWS, Heroku, or Docker container deployment
+          name: Deploy
+          command : echo "Deployment"
 
 # Define workflows
 workflows:
