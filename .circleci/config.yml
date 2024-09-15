@@ -10,8 +10,6 @@ jobs:
       - run:
           name: Build Project
           command: |
-            # Add your build commands here, for example:
-            python setup.py install  # or any build command relevant to your project
             python home.py install
 
 # Workflow
