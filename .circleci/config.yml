@@ -19,7 +19,7 @@ jobs:
     steps:
       - checkout
       - run:
-           name: "No dependencies required for build"
+          name: "No dependencies required for build"
           command: echo "Skipping dependency installation."
       - run:
           name: Run Tests
