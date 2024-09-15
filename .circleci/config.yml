@@ -33,8 +33,21 @@ jobs:
       - run:
           name: Run Tests with pytest
           command: |
-            pytest test_sum1.py # Discover and run all test_*.py files
-
+            pytest test_sum1.py # Discover and run all test_*.py files          
+  test2:
+    docker:
+      - image: circleci/python:3.8  # Use the appropriate Docker image
+    steps:
+      - checkout  # Pull the code from GitHub repository
+      - run:
+          name: Install pytest
+          command: |
+            python -m pip install --upgrade pip
+            pip install pytest  # Install pytest directly
+      - run:
+          name: Run Tests with pytest
+          command: |
+            pytest test_sub1.py # Discover and run all test_*.py files
 
 # Workflow
 workflows:
@@ -46,4 +59,6 @@ workflows:
       - test:
           requires:
             - build
+      - test2:
+          requires:
             - build2
